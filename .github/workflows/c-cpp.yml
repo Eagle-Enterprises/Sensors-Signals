@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: c-linter
-        uses: ArtificialAmateur/cpp-linter-action@master
+      # TODO:Uncomment this once there is code
+      # - name: c-linter
+      #   uses: ArtificialAmateur/cpp-linter-action@master
   c-cpp-build:
     runs-on: ubuntu-latest
 
@@ -21,18 +22,18 @@ jobs:
 
       - name: Setup C/C++
         uses: aminya/setup-cpp@v1
+      # TODO: Uncomment this out once there is code in the repository
+      # - name: Build
+      #   run: make -j $(nproc)
 
-      - name: Build
-        run: make -j $(nproc)
+      # - name: Test
+      #   run: make check
 
-      - name: Test
-        run: make check
+      # - name: Package
+      #   run: make package
 
-      - name: Package
-        run: make package
-
-      - name: Upload package to the repository
-        uses: actions/upload-artifact@v3
-        with:
-          name: package
-          path: build/package
+      # - name: Upload package to the repository
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: package
+      #     path: build/package
