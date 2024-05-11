@@ -1,0 +1,6 @@
+[submodule "libraries/TinyGPS"]
+	path = libraries/TinyGPS
+	url = git@github.com:mikalhart/TinyGPS.git
+[submodule "libraries/RadioHead"]
+	path = libraries/RadioHead
+	url = git@github.com:adafruit/RadioHead.git
