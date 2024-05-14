@@ -10,10 +10,11 @@
 // Define Board Pins
 // Current code assumes use of an ESP8266; consult example code "RadioHead69_RawDemo_TX/RX if different" 
 #if defined(ESP8266)
-  #define RFM69_CS    16  // Pin D0 on board == GPIO16
-  #define RFM69_INT   15  // Pin D8
-  #define RFM69_RST   5   // Pin D1
-  #define LED         2   // Pin D4, pre-connected to on-board LED
+  #define RFM69_CS    15    // Pin D8 on board == GPIO16
+  #define RFM69_INT   5     // Pin D1
+  #define RFM69_RST   16    // Pin D0
+  #define LED         2     // Pin D4, pre-connected to on-board LED
+#endif
 
 // Singleton instance of the radio driver
 RH_RF69 rf69(RFM69_CS, RFM69_INT);
@@ -33,7 +34,7 @@ void setup() {
   Serial.println();
 
   resetRF69();
-
+  
   Serial.println("RFM69 radio init OK!");
 
   // Defaults after init are 434.0MHz, modulation GFSK_Rb250Fd250, +13dbM (for low power module)
@@ -66,7 +67,7 @@ void loop() {
   uint8_t buf[22]; // TODO: Should be variable based on number of args given
   uint8_t len = sizeof(buf);
 
-  
+
 
 }
 
