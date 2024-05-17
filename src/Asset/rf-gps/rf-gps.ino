@@ -5,7 +5,7 @@
 #include <TinyGPS.h>
 
 // Uncomment the below line when connected to a PC + outputting to a Serial Monitor
-//#define DEBUG
+#define DEBUG
 
 // Define Operating Frequency: 915 for mission operations
 #define RF69_FREQ 915.0
