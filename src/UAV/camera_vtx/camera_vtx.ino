@@ -1,15 +1,21 @@
 #include <HardwareSerial.h>
-#include "SoftwareSerial.h"
+#include <SoftwareSerial.h>
 
-//#ifndef D5
-//#if defined(ESP8266)
+//Target board - ESP32 or ESP8266 
+#define ESP32
+
+
+//Using pin D6 for half duplux smart audio
+
+#ifndef D5
+#if defined(ESP8266)
 #define D5 (14)
 #define D6 (12)
-//#elif defined(ESP32)
-//#define D5 (18)
-//#define D6 (19)
-//#endif
-//#endif
+#elif defined(ESP32)
+#define D5 (18)
+#define D6 (23)
+#endif
+#endif
 
 
 #define SA_GET_SETTINGS 0x01
@@ -26,8 +32,12 @@
 #define SA_POWER_800MW 3
 
 
-const int buttonPin = 4;  // the number of the pushbutton pin
+const int buttonPin = 22;  // the number of the pushbutton pin
 int buttonState = 0;  // variable for reading the pushbutton status
+int buttonStateStored = 0;  // variable for reading the pushbutton status
+
+
+const int tx_chan = 24;  // index of transmit channel
 
 //EspSoftwareSerial::UART* ss;
 EspSoftwareSerial::UART swSer1;
@@ -217,6 +227,8 @@ void setup()
   //Serial4.begin(4900);
   //UCSR0B &= ~(1<<TXEN0);
 
+  pinMode(buttonPin, INPUT);
+
 
     swSer1.begin(4900, EspSoftwareSerial::SWSERIAL_8N1, D6, D6, false);
     // high speed half duplex, turn off interrupts during tx
@@ -229,6 +241,27 @@ uint8_t zeroes = 0;
 
 int incomingByte = 0; 
 void loop(){
+
+
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState != buttonStateStored) {
+
+    buttonStateStored = buttonState;
+
+    if (buttonStateStored==HIGH){
+        sa_tx_packet(SA_SET_MODE,4 , &swSer1);
+        Serial.println("*****************Pin initiated leaving pit mode********************");
+    }
+    else {
+        sa_tx_packet(SA_SET_MODE,1 , &swSer1);
+        Serial.println("*****************Pin initiated entering pit mode********************");
+    }
+       
+       //TODO: set channel on same interval as heartbeat
+       // sa_tx_packet(SA_SET_CHANNEL,tx_chan , &swSer1);
+       // Serial.println("*****************Pin initiated channel set********************");
+    }
 
   
   if (Serial.available() > 0) {
@@ -273,6 +306,22 @@ void loop(){
         sa_tx_packet(SA_SET_POWER,3 , &swSer1);
         Serial.println("*****************Requesting power 40********************");
         break;
+
+      case 'z':
+        sa_tx_packet(SA_SET_CHANNEL,0 , &swSer1);
+        Serial.println("*****************Requesting channel 0********************");
+        break;
+
+      case 'x':
+        sa_tx_packet(SA_SET_CHANNEL,8 , &swSer1);
+        Serial.println("*****************Requesting channel 8********************");
+        break;
+
+      case 'c':
+        sa_tx_packet(SA_SET_CHANNEL,24 , &swSer1);
+        Serial.println("*****************Requesting channel 24********************");
+        break;
+
     }
     //Serial4.end();//clear buffer, otherwise sa_tx_packet is received
     //Serial4.begin(4900);
