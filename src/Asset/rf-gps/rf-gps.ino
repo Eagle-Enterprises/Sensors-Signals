@@ -30,9 +30,9 @@ void setup() {
   Serial.begin(115200);
   ss_gps.begin(9600);
 
-  #ifdef DEBUG
-    while (!Serial) delay(1); // Wait for Serial Console
-  #endif
+  // #ifdef DEBUG
+  //   while (!Serial) delay(1); // Wait for Serial Console
+  // #endif
 
   pinMode(LED, OUTPUT);
   pinMode(RFM69_RST, OUTPUT);
