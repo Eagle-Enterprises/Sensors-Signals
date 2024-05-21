@@ -4,3 +4,6 @@
 [submodule "libraries/RadioHead"]
 	path = libraries/RadioHead
 	url = git@github.com:adafruit/RadioHead.git
+[submodule "libraries/Makerfabs-ESP32-UWB"]
+	path = libraries/Makerfabs-ESP32-UWB
+	url = git@github.com:Makerfabs/Makerfabs-ESP32-UWB.git
