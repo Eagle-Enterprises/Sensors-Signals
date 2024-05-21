@@ -7,3 +7,6 @@
 [submodule "libraries/Makerfabs-ESP32-UWB"]
 	path = libraries/Makerfabs-ESP32-UWB
 	url = git@github.com:Makerfabs/Makerfabs-ESP32-UWB.git
+[submodule "libraries/espsoftwareserial"]
+	path = libraries/espsoftwareserial
+	url = git@github.com:plerup/espsoftwareserial.git
