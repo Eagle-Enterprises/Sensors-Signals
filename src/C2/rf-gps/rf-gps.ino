@@ -139,19 +139,18 @@ void loop() {
     if (rf69.recv(buf, &len)) {
       if (!len) return;
       buf[len] = 0;
-      Serial.print("Received [");
-      Serial.print(len);
-      Serial.print("]: ");
+      // Serial.print("Received [");
+      // Serial.print(len);
+      // Serial.print("]: ");
       Serial.println((char*)buf);
-      Serial.print("RSSI: ");
-      Serial.println(rf69.lastRssi(), DEC);
+      Serial.println();
 
       if (strstr((char *)buf, "LAT")) {
         // Send a reply!
-        uint8_t data[] = "And hello back to you";
-        rf69.send(data, sizeof(data));
-        rf69.waitPacketSent();
-        Serial.println("Sent a reply");
+        // uint8_t data[] = "And hello back to you";
+        // rf69.send(data, sizeof(data));
+        // rf69.waitPacketSent();
+        // Serial.println("Sent a reply");
         Blink(LED, 40, 3); // blink LED 3 times, 40ms between blinks
       }
     } else {
